@@ -1,7 +1,11 @@
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
+import { getConstantValue } from "typescript";
+import CircleCompo from "./Circle";
 import { Ani } from "./prac2-4";
 import { ThemePrac } from "./prac2-7";
 
+/*2장 styled-component*/
 const animation = keyframes`
   from {
     transform:rotate();
@@ -41,6 +45,7 @@ const Text = styled.span`
 const Input = styled.input.attrs({ required: true, minLength: 10 })`
   background-color: tomato;
 `;
+/*2장 styled-component
 
 function App() {
   return (
@@ -57,5 +62,36 @@ function App() {
     </Father>
   );
 }
+*/
 
+/*3장 typescript*/
+
+function App() {
+  const [value, setValue] = useState("");
+  const onChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = e; // e에 있는 currentTarget의 value값 value 변수에 얻기
+    setValue(value);
+  };
+  const onSubmit = (event: React.FocusEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log("hello", value);
+  };
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <input
+          value={value}
+          onChange={onChange}
+          type="text"
+          placeholder="username"
+        />
+        <button>push</button>
+      </form>
+      {/*<CircleCompo bgColor={"tomato"} />*/}
+      <ThemePrac></ThemePrac>
+    </div>
+  );
+}
 export default App;
